@@ -1,0 +1,452 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "usuarios": {
+            "type": "object",
+            "properties": {
+                "nome": {
+                    "type": "string",
+                    "example": "Guilherme"
+                },
+                "email": {
+                    "type": "string",
+                    "example": "guilherme@email.com"
+                },
+                "criadoEm": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "timestamp"
+                },
+                "plano": {
+                    "type": "string",
+                    "enum": [
+                        "gratuito",
+                        "premium"
+                    ]
+                }
+            },
+            "required": [
+                "email",
+                "criadoEm",
+                "plano"
+            ]
+        },
+        "perfis_usuario": {
+            "type": "object",
+            "properties": {
+                "restricao_alimentar": {
+                    "type": "string",
+                    "enum": [
+                        "nenhuma",
+                        "vegetariano",
+                        "vegano",
+                        "sem_porco",
+                        "sem_carne"
+                    ]
+                },
+                "alergias": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "example": [
+                        "lactose",
+                        "gluten"
+                    ]
+                },
+                "prioridade": {
+                    "type": "string",
+                    "enum": [
+                        "rapidez",
+                        "pouco_esforco",
+                        "usar_ingredientes",
+                        "variar"
+                    ]
+                },
+                "preferencia_receita": {
+                    "type": "string",
+                    "enum": [
+                        "simples",
+                        "balanceada",
+                        "variar"
+                    ]
+                },
+                "nivel_cozinha": {
+                    "type": "string",
+                    "enum": [
+                        "iniciante",
+                        "normal",
+                        "confiante"
+                    ]
+                },
+                "receber_sugestao_dia": {
+                    "type": "boolean",
+                    "example": true
+                }
+            }
+        },
+        "receitas": {
+            "type": "object",
+            "properties": {
+                "nome": {
+                    "type": "string",
+                    "example": "Frango com arroz"
+                },
+                "descricao": {
+                    "type": "string",
+                    "example": "Frango com arroz é uma receita simples e saborosa"
+                },
+                "foto": {
+                    "type": "string",
+                    "example": "https://example.com/foto.jpg"
+                },
+                "tempo_minutos": {
+                    "type": "number",
+                    "example": 25
+                },
+                "esforco": {
+                    "type": "string",
+                    "enum": [
+                        "baixo",
+                        "medio"
+                    ]
+                },
+                "dieta": {
+                    "type": "string",
+                    "enum": [
+                        "nenhuma",
+                        "vegetariana",
+                        "vegana"
+                    ]
+                },
+                "ingredientes": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "ingredienteId": {
+                                "type": "string",
+                                "example": "agua"
+                            },
+                            "quantidade": {
+                                "type": "number",
+                                "example": 500
+                            },
+                            "unidade": {
+                                "type": "string",
+                                "example": "ml"
+                            }
+                        },
+                        "required": [
+                            "ingredienteId",
+                            "quantidade",
+                            "unidade"
+                        ]
+                    }
+                },
+                "categoria": {
+                    "type": "string",
+                    "enum": [
+                        "carne",
+                        "peixe",
+                        "vegetariano",
+                        "vegano"
+                    ]
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "example": [
+                        "rapida",
+                        "pouco_esforco"
+                    ]
+                },
+                "pontuacao_base": {
+                    "type": "number",
+                    "description": "0.0 ruim / 0.5 normal / 0.7 bom / 1.0 excelente",
+                    "example": 0.7
+                },
+                "porcoes": {
+                    "type": "number",
+                    "example": 2
+                },
+                "etapas": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "ordem": {
+                                "type": "number",
+                                "example": 1
+                            },
+                            "titulo": {
+                                "type": "string",
+                                "example": "Preparar os ingredientes"
+                            },
+                            "descricao": {
+                                "type": "string",
+                                "example": "Corte o frango em cubos e pique a cebola."
+                            }
+                        },
+                        "required": [
+                            "ordem",
+                            "titulo",
+                            "descricao"
+                        ]
+                    }
+                }
+            }
+        },
+        "ingredientes": {
+            "type": "object",
+            "properties": {
+                "nome": {
+                    "type": "string",
+                    "example": "Frango"
+                },
+                "categoria": {
+                    "type": "string",
+                    "enum": [
+                        "proteina",
+                        "carboidrato",
+                        "legume",
+                        "outro"
+                    ]
+                },
+                "local": {
+                    "type": "string",
+                    "enum": [
+                        "Hortifruti",
+                        "Açougue",
+                        "Padaria",
+                        "Mercearia",
+                        "Bebidas",
+                        "Outro"
+                    ]
+                },
+                "substitutos": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "example": [
+                        "ovo",
+                        "tofu"
+                    ]
+                }
+            }
+        },
+        "inventario_usuario": {
+            "type": "object",
+            "properties": {
+                "usuarioId": {
+                    "type": "string",
+                    "example": "u1"
+                },
+                "ingredienteId": {
+                    "type": "string",
+                    "example": "frango"
+                },
+                "quantidade": {
+                    "type": "number",
+                    "example": 2
+                },
+                "unidade": {
+                    "type": "string",
+                    "example": "kg"
+                },
+                "validade": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "2025-02-10"
+                },
+                "local": {
+                    "type": "string",
+                    "enum": [
+                        "Hortifruti",
+                        "Açougue",
+                        "Padaria",
+                        "Mercearia",
+                        "Bebidas",
+                        "Outro"
+                    ]
+                }
+            }
+        },
+        "listas_compras": {
+            "type": "object",
+            "properties": {
+                "itens": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "ingredienteId": {
+                                "type": "string",
+                                "example": "cebola"
+                            },
+                            "quantidade": {
+                                "type": "number",
+                                "example": 2
+                            },
+                            "local": {
+                                "type": "string",
+                                "enum": [
+                                    "Hortifruti",
+                                    "Açougue",
+                                    "Padaria",
+                                    "Mercearia",
+                                    "Bebidas",
+                                    "Outro"
+                                ]
+                            },
+                            "marcado": {
+                                "type": "boolean",
+                                "example": false
+                            }
+                        },
+                        "required": [
+                            "ingredienteId",
+                            "quantidade",
+                            "local",
+                            "marcado"
+                        ]
+                    }
+                },
+                "atualizadoEm": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "timestamp"
+                }
+            },
+            "required": [
+                "itens",
+                "atualizadoEm"
+            ]
+        },
+        "categoria_receita": {
+            "type": "object",
+            "properties": {
+                "nome": {
+                    "type": "string",
+                    "example": "Carnes"
+                },
+                "foto": {
+                    "type": "string",
+                    "example": "https://example.com/foto.jpg"
+                }
+            }
+        },
+        "categoria_ingrediente": {
+            "type": "object",
+            "properties": {
+                "nome": {
+                    "type": "string",
+                    "example": "Carnes"
+                }
+            },
+            "required": [
+                "nome"
+            ]
+        },
+        "gostos_usuario": {
+            "type": "object",
+            "properties": {
+                "usuarioId": {
+                    "type": "string",
+                    "example": "u1"
+                },
+                "tags_favoritas": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "number"
+                    },
+                    "example": {
+                        "rapida": 12,
+                        "pouco_esforco": 7,
+                        "vegetariana": 2
+                    }
+                },
+                "ingredientes_favoritos": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "number"
+                    },
+                    "example": {
+                        "frango": 15,
+                        "arroz": 11,
+                        "ovo": 6
+                    }
+                },
+                "ingredientes_evitados": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "number"
+                    },
+                    "example": {
+                        "berinjela": 4,
+                        "peixe": 2
+                    }
+                },
+                "ultimaAtualizacao": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "timestamp"
+                }
+            },
+            "required": [
+                "tags_favoritas",
+                "ingredientes_favoritos",
+                "ingredientes_evitados",
+                "ultimaAtualizacao"
+            ]
+        },
+        "configuracao_app": {
+            "type": "object",
+            "properties": {
+                "modo_manutencao": {
+                    "type": "boolean",
+                    "example": true
+                },
+                "ia_ativa": {
+                    "type": "boolean",
+                    "example": true
+                },
+                "premium_ativo": {
+                    "type": "boolean",
+                    "example": true
+                },
+                "limites": {
+                    "type": "object",
+                    "properties": {
+                        "ia_gratis_por_dia": {
+                            "type": "number",
+                            "example": 10
+                        },
+                        "max_itens_inventario": {
+                            "type": "number",
+                            "example": 100
+                        }
+                    }
+                },
+                "features": {
+                    "type": "object",
+                    "properties": {
+                        "ia": {
+                            "type": "object",
+                            "properties": {
+                                "ia_ativa": {
+                                    "type": "boolean",
+                                    "example": true
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
